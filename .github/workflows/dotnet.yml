@@ -23,3 +23,9 @@ jobs:
         run: dotnet restore
       - name: Build
         run: dotnet build --configuration Release --no-restore
+      - name: Generate Package
+        run: dotnet pack -o nupkg # -p:Version=2.0 (get tag env variable)
+      - uses: actions/upload-artifact@v2
+        with:
+          name: package
+          path: nupkg/
