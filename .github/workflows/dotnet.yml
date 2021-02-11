@@ -24,8 +24,8 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release --no-restore
       - name: Generate Package
-        run: dotnet pack -o /artifact/nupkg # -p:Version=2.0 (get tag env variable)
+        run: dotnet pack -o artifact/nupkg # -p:Version=2.0 (get tag env variable)
       - uses: actions/upload-artifact@v2
         with:
           name: package
-          path: /artifact/nupkg/
+          path: artifact/nupkg/
