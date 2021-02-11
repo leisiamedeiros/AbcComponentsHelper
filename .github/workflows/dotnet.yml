@@ -1,20 +1,25 @@
-name: Build-And-Pack
+name: dotnet package
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   build:
-
-    runs-on: mcr.microsoft.com/dotnet/core/sdk:2.2
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet: ["2.2.103"]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-
+      - uses: actions/checkout@v2
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v1.6.0
+        with:
+          dotnet-version: "2.2.103"
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
